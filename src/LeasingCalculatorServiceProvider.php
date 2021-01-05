@@ -19,7 +19,7 @@ class LeasingCalculatorServiceProvider extends ServiceProvider
             ], 'views');
 
             $migrationFileName = 'create_leasing_calculator_table.php';
-            if (! $this->migrationFileExists($migrationFileName)) {
+            if (!$this->migrationFileExists($migrationFileName)) {
                 $this->publishes([
                     __DIR__ . "/../database/migrations/{$migrationFileName}.stub" => database_path('migrations/' . date('Y_m_d_His', time()) . '_' . $migrationFileName),
                 ], 'migrations');
@@ -35,6 +35,10 @@ class LeasingCalculatorServiceProvider extends ServiceProvider
 
     public function register()
     {
+        $this->app->bind('leasing-calculator', function ($app) {
+            return new LeasingCalculator();
+        });
+
         $this->mergeConfigFrom(__DIR__ . '/../config/leasing-calculator.php', 'leasing-calculator');
     }
 
