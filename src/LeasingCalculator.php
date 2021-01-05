@@ -10,6 +10,7 @@ class LeasingCalculator
     {
         $login = new Login();
         $user = $login->login();
+
         return $user;
     }
 }

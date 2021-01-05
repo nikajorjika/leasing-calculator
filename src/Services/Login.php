@@ -18,7 +18,7 @@ class Login
         $this->user = config('leasing-calculator.user');
         $this->password = config('leasing-calculator.password');
         $this->client = new Client([
-            'base_uri' =>  config('leasing-calculator.host')
+            'base_uri' => config('leasing-calculator.host'),
         ]);
     }
 
@@ -27,15 +27,14 @@ class Login
         return json_decode($this->auth());
     }
 
-
     protected function auth()
     {
         try {
             $response = $this->client->request('POST', $this->endpoint, [
                 'form_params' => [
                     'email' => $this->user,
-                    'password' => $this->password
-                ]
+                    'password' => $this->password,
+                ],
             ]);
         } catch (RequestException $e) {
             echo Message::toString($e->getRequest());
@@ -43,6 +42,7 @@ class Login
                 echo Message::toString($e->getResponse());
             }
         }
+
         return $response->getBody()->getContents();
     }
 }
