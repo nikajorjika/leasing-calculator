@@ -1,23 +1,23 @@
 {
-    "name": ":vendor_name/:package_name",
-    "description": ":package_description",
+    "name": "jorjika/leasing-calculator",
+    "description": "Calculator for Leasing API created by redberry",
     "keywords": [
-        ":vendor_name",
-        ":package_name"
+        "jorjika",
+        "leasing-calculator"
     ],
-    "homepage": "https://github.com/:vendor_name/:package_name",
+    "homepage": "https://github.com/jorjika/leasing-calculator",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": ":author_email",
-            "homepage": ":author_homepage",
+            "name": "Nika Jorjoliani",
+            "email": "n_jorjoliani@cu.edu.ge",
+            "homepage": "https://carfest.ge",
             "role": "Developer"
         }
     ],
     "require": {
         "php": "^7.4|^8.0",
-        "illuminate/contracts": "^8.0"
+        "illuminate/contracts": "^6.0|^7.0|^8.0"
     },
     "require-dev": {
         "orchestra/testbench": "^6.0",
@@ -25,13 +25,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Spatie\\Skeleton\\": "src",
-            "Spatie\\Skeleton\\Database\\Factories\\": "database/factories"
+            "Jorjika\\LeasingCalculator\\": "src",
+            "Jorjika\\LeasingCalculator\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Spatie\\Skeleton\\Tests\\": "tests"
+            "Jorjika\\LeasingCalculator\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -45,10 +45,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Spatie\\Skeleton\\SkeletonServiceProvider"
+                "Jorjika\\LeasingCalculator\\LeasingCalculatorServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "Spatie\\Skeleton\\SkeletonFacade"
+                "LeasingCalculator": "Jorjika\\LeasingCalculator\\LeasingCalculatorFacade"
             }
         }
     },
@@ -57,11 +57,11 @@
     "funding": [
         {
             "type": "github",
-            "url": "https://github.com/sponsors/:vendor_name"
+            "url": "https://github.com/sponsors/jorjika"
         },
         {
             "type": "other",
-            "url": ":author_homepage"
+            "url": "https://carfest.ge"
         }
     ]
 }

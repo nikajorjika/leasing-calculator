@@ -1,12 +1,12 @@
 <?php
 
-namespace Spatie\Skeleton\Commands;
+namespace Jorjika\LeasingCalculator\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class LeasingCalculatorCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'leasing-calculator';
 
     public $description = 'My command';
 
