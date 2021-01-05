@@ -3,8 +3,8 @@
 namespace Jorjika\LeasingCalculator\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Orchestra\Testbench\TestCase as Orchestra;
 use Jorjika\LeasingCalculator\LeasingCalculatorServiceProvider;
+use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {
