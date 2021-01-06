@@ -19,7 +19,7 @@ class Auth
         $this->user = config('leasing-calculator.user');
         $this->password = config('leasing-calculator.password');
         $this->client = new Client([
-            'base_uri' =>  config('leasing-calculator.host')
+            'base_uri' => config('leasing-calculator.host'),
         ]);
     }
 
@@ -30,19 +30,22 @@ class Auth
         return $response->data;
     }
 
+<<<<<<< HEAD:src/Services/Auth.php
     public function check()
     {
         $token = session('leasing_calculator_token');
         return $token;
     }
+=======
+>>>>>>> 2df7969230ce76059aa991024aef9e370e490bdf:src/Services/Login.php
     protected function auth()
     {
         try {
             $response = $this->client->request('POST', $this->endpoint, [
                 'form_params' => [
                     'email' => $this->user,
-                    'password' => $this->password
-                ]
+                    'password' => $this->password,
+                ],
             ]);
         } catch (RequestException $e) {
             Log::error(Message::toString($e->getRequest()));
@@ -50,6 +53,7 @@ class Auth
                 Log::error(Message::toString($e->getResponse()));
             }
         }
+
         return $response->getBody()->getContents();
     }
 }
