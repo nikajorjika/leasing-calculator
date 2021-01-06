@@ -30,14 +30,12 @@ class Auth
         return $response->data;
     }
 
-<<<<<<< HEAD:src/Services/Auth.php
     public function check()
     {
         $token = session('leasing_calculator_token');
         return $token;
     }
-=======
->>>>>>> 2df7969230ce76059aa991024aef9e370e490bdf:src/Services/Login.php
+
     protected function auth()
     {
         try {

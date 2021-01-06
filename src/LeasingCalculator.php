@@ -22,11 +22,6 @@ class LeasingCalculator
         }
     }
 
-    public function init($car)
-    {
-        return $this->getConditions($car);
-    }
-
     public function getConditions($car)
     {
         $response = $this->client->request('GET', config('leasing-calculator.terms_endpoint'), [
@@ -38,7 +33,9 @@ class LeasingCalculator
                 'Authorization' => "Bearer " . $this->auth->check()
             ]
         ]);
-        dd($response->getBody()->getContents());
-        return $response->getBody()->getContents();
+        if ($response->getStatusCode() !== 200) {
+            abort($response->getStatusCode(), $response->getBody()->getContents());
+        }
+        return json_decode($response->getBody()->getContents());
     }
 }
