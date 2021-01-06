@@ -5,8 +5,9 @@ namespace Jorjika\LeasingCalculator\Services;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Message;
+use Illuminate\Support\Facades\Log;
 
-class Login
+class Auth
 {
     protected $endpoint;
     protected $user;
@@ -24,10 +25,16 @@ class Login
 
     public function login()
     {
-        return json_decode($this->auth());
+        $response = json_decode($this->auth());
+        session(['leasing_calculator_token' => $response->data->token]);
+        return $response->data;
     }
 
-
+    public function check()
+    {
+        $token = session('leasing_calculator_token');
+        return $token;
+    }
     protected function auth()
     {
         try {
@@ -38,9 +45,9 @@ class Login
                 ]
             ]);
         } catch (RequestException $e) {
-            echo Message::toString($e->getRequest());
+            Log::error(Message::toString($e->getRequest()));
             if ($e->hasResponse()) {
-                echo Message::toString($e->getResponse());
+                Log::error(Message::toString($e->getResponse()));
             }
         }
         return $response->getBody()->getContents();
