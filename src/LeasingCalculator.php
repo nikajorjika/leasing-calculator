@@ -34,6 +34,7 @@ class LeasingCalculator
         if ($response->getStatusCode() !== 200) {
             abort($response->getStatusCode(), $response->getBody()->getContents());
         }
+
         return json_decode($response->getBody()->getContents());
     }
 }
