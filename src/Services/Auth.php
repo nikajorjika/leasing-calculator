@@ -27,12 +27,14 @@ class Auth
     {
         $response = json_decode($this->auth());
         session(['leasing_calculator_token' => $response->data->token]);
+
         return $response->data;
     }
 
     public function check()
     {
         $token = session('leasing_calculator_token');
+
         return $token;
     }
 

@@ -15,7 +15,7 @@ class LeasingCalculator
             'base_uri' => config('leasing-calculator.host'),
         ]);
         $this->auth = new Auth();
-        if (!$this->auth->check()) {
+        if (! $this->auth->check()) {
             $this->auth->login();
         }
     }
@@ -34,6 +34,7 @@ class LeasingCalculator
         if ($response->getStatusCode() !== 200) {
             abort($response->getStatusCode(), $response->getBody()->getContents());
         }
+
         return json_decode($response->getBody()->getContents());
     }
 
@@ -48,6 +49,7 @@ class LeasingCalculator
         if ($response->getStatusCode() !== 200) {
             abort($response->getStatusCode(), $response->getBody()->getContents());
         }
+
         return json_decode($response->getBody()->getContents());
     }
 
@@ -63,6 +65,7 @@ class LeasingCalculator
         if ($response->getStatusCode() !== 200) {
             abort($response->getStatusCode(), $response->getBody()->getContents());
         }
+
         return json_decode($response->getBody()->getContents());
     }
 
@@ -78,6 +81,7 @@ class LeasingCalculator
             $result[$keyStart . "['year']"] = $car['year'];
             $result[$keyStart . "['sold']"] = $car['sold'];
         }
+
         return $result;
     }
 }
