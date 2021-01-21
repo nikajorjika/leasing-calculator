@@ -15,7 +15,7 @@ class LeasingCalculator
             'base_uri' => config('leasing-calculator.host'),
         ]);
         $this->auth = new Auth();
-        if (! $this->auth->check()) {
+        if (!$this->auth->check()) {
             $this->auth->login();
         }
     }
@@ -34,7 +34,50 @@ class LeasingCalculator
         if ($response->getStatusCode() !== 200) {
             abort($response->getStatusCode(), $response->getBody()->getContents());
         }
-
         return json_decode($response->getBody()->getContents());
+    }
+
+    public function addCar($car)
+    {
+        $response = $this->client->request('POST', config('leasing-calculator.new_car_endpoint'), [
+            'form_params' => $car,
+            'headers' => [
+                'Authorization' => "Bearer " . $this->auth->check(),
+            ],
+        ]);
+        if ($response->getStatusCode() !== 200) {
+            abort($response->getStatusCode(), $response->getBody()->getContents());
+        }
+        return json_decode($response->getBody()->getContents());
+    }
+
+    public function addCars($cars)
+    {
+        $formParams = self::normalizeCarsArray($cars);
+        $response = $this->client->request('POST', config('leasing-calculator.new_cars_endpoint'), [
+            'form_params' => $formParams,
+            'headers' => [
+                'Authorization' => "Bearer " . $this->auth->check(),
+            ],
+        ]);
+        if ($response->getStatusCode() !== 200) {
+            abort($response->getStatusCode(), $response->getBody()->getContents());
+        }
+        return json_decode($response->getBody()->getContents());
+    }
+
+    public function normalizeCarsArray($cars)
+    {
+        $result = [];
+        foreach ($cars as $key => $car) {
+            $keyStart = "data[$key]";
+            $result[$keyStart . "['name']"] = $car['name'];
+            $result[$keyStart . "['link']"] = $car['link'];
+            $result[$keyStart . "['price']"] = $car['price'];
+            $result[$keyStart . "['remote_car_id']"] = $car['remote_car_id'];
+            $result[$keyStart . "['year']"] = $car['year'];
+            $result[$keyStart . "['sold']"] = $car['sold'];
+        }
+        return $result;
     }
 }
