@@ -15,18 +15,18 @@ class LeasingCalculator
             'base_uri' => config('leasing-calculator.host'),
         ]);
         $this->auth = new Auth();
-        if (!$this->auth->check()) {
+        if (! $this->auth->check()) {
             $this->auth->login();
         }
     }
 
     public function getConditions($car, $amount = null, $downpayment = null, $currency = 'USD')
     {
-        if (!$car) {
+        if (! $car) {
             $query = [
                 'amount' => $amount,
                 'down_payment_amount' => $downpayment,
-                'ccy' => $currency
+                'ccy' => $currency,
             ];
         } else {
             $query = [
