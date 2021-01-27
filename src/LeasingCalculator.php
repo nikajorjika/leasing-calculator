@@ -15,22 +15,32 @@ class LeasingCalculator
             'base_uri' => config('leasing-calculator.host'),
         ]);
         $this->auth = new Auth();
-        if (! $this->auth->check()) {
+        if (!$this->auth->check()) {
             $this->auth->login();
         }
     }
 
-    public function getConditions($car)
+    public function getConditions($car, $amount = null, $downpayment = null, $currency = 'USD')
     {
-        $response = $this->client->request('GET', config('leasing-calculator.terms_endpoint'), [
-            'query' => [
+        if (!$car) {
+            $query = [
+                'amount' => $amount,
+                'down_payment_amount' => $downpayment,
+                'ccy' => $currency
+            ];
+        } else {
+            $query = [
                 'remote_car_id' => $car->id,
-            ],
+            ];
+        }
+        $response = $this->client->request('GET', config('leasing-calculator.terms_endpoint'), [
+            'query' => $query,
             'headers' =>
             [
                 'Authorization' => "Bearer " . $this->auth->check(),
             ],
         ]);
+
         if ($response->getStatusCode() !== 200) {
             abort($response->getStatusCode(), $response->getBody()->getContents());
         }
