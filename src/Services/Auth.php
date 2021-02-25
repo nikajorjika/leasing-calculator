@@ -47,13 +47,13 @@ class Auth
                     'password' => $this->password,
                 ],
             ]);
+
+            return $response->getBody()->getContents();
         } catch (RequestException $e) {
-            Log::error(Message::toString($e->getRequest()));
             if ($e->hasResponse()) {
+                throw $e;
                 Log::error(Message::toString($e->getResponse()));
             }
         }
-
-        return $response->getBody()->getContents();
     }
 }
