@@ -6,7 +6,7 @@ return [
     'password' => env('LEASING_PASSWORD', 'carfest'),
     'login_endpoint' => env('LEASING_LOGIN_ENDPOINT', '/api/login'),
     'terms_endpoint' => env('LEASING_TERMS_ENDPOINT', '/api/leasing-terms'),
-    'new_car_endpoint' => env('LEASING_LOGIN_ENDPOINT', '/api/car/store'),
-    'new_cars_endpoint' => env('LEASING_LOGIN_ENDPOINT', '/api/car/store-many'),
-    'new_application_endpoint' => env('LEASING_LOGIN_ENDPOINT', '/api/application'),
+    'new_car_endpoint' => env('LEASING_STORE_CAR_ENDPOINT', '/api/car/store'),
+    'new_cars_endpoint' => env('LEASING_STORE_CARS_ENDPOINT', '/api/car/store-many'),
+    'new_application_endpoint' => env('LEASING_POST_APPLICATION_ENDPOINT', '/api/application'),
 ];
