@@ -48,23 +48,23 @@ class LeasingCalculator
         return json_decode($response->getBody()->getContents());
     }
     
-  public function getLeasingProviderConditions($provider_id, $car, $amount = null, $downpayment = null, $currency = 'USD')
-  {
-    if (!$car) {
-      $query = [
+    public function getLeasingProviderConditions($provider_id, $car, $amount = null, $downpayment = null, $currency = 'USD')
+    {
+        if (! $car) {
+            $query = [
         'amount' => $amount,
         'down_payment_amount' => $downpayment,
         'ccy' => $currency,
       ];
-    } else {
-      $query = [
+        } else {
+            $query = [
         'remote_car_id' => $car->id,
         'down_payment_amount' => $downpayment,
         'ccy' => $currency,
       ];
-    }
-    $url = config('leasing-calculator.terms_endpoint') . '/' . $provider_id;
-    $response = $this->client->request('GET', $url, [
+        }
+        $url = config('leasing-calculator.terms_endpoint') . '/' . $provider_id;
+        $response = $this->client->request('GET', $url, [
       'query' => $query,
       'headers' =>
       [
@@ -72,13 +72,12 @@ class LeasingCalculator
       ],
     ]);
 
-    if ($response->getStatusCode() !== 200) {
-      abort($response->getStatusCode(), $response->getBody()->getContents());
+        if ($response->getStatusCode() !== 200) {
+            abort($response->getStatusCode(), $response->getBody()->getContents());
+        }
+
+        return json_decode($response->getBody()->getContents());
     }
-
-    return json_decode($response->getBody()->getContents());
-  }
-
 
     public function addCar($car)
     {
