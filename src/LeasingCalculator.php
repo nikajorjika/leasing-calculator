@@ -125,4 +125,35 @@ class LeasingCalculator
 
         return $result;
     }
+    
+    public function saveApplication($applicationForm)
+    {
+        $form = [];
+        $form['client']['first_name'] = $applicationForm['first_name'];
+        $form['client']['last_name'] = $applicationForm['last_name'];
+        $form['client']['phone'] = $applicationForm['phone'];
+        $form['client']['personal_id'] = $applicationForm['personal_id'];
+        $form['client']['email'] = $applicationForm['email'];
+        $form['credit_score_group'] = $applicationForm['credit_score_group'];
+        $form['amount'] = $applicationForm['amount'];
+        $form['leasing_duration'] = $applicationForm['leasing_duration'];
+        $form['down_payment_amount'] = $applicationForm['down_payment_amount'];
+        $form['interest_rate'] = $applicationForm['interest_rate'];
+        $form['leasing_ids'] = [1];
+        $form['remote_car_id'] = $applicationForm['remote_car_id'];
+        $form['ccy'] = $applicationForm['ccy'];
+
+        $response = $this->client->request('POST', config('leasing-calculator.new_application_endpoint'), [
+            'form_params' => $form,
+            'headers' => [
+                'Authorization' => "Bearer " . $this->auth->check(),
+            ],
+        ]);
+
+        if ($response->getStatusCode() !== 200) {
+            abort($response->getStatusCode(), $response->getBody()->getContents());
+        }
+
+        return json_decode($response->getBody()->getContents());
+    }
 }
