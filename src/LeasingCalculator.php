@@ -135,12 +135,12 @@ class LeasingCalculator
         $form['client']['personal_id'] = $applicationForm['personal_id'];
         $form['client']['email'] = $applicationForm['email'];
         $form['credit_score_group'] = $applicationForm['credit_score_group'];
-        $form['amount'] = $applicationForm['amount'];
-        $form['leasing_duration'] = $applicationForm['leasing_duration'];
-        $form['down_payment_amount'] = $applicationForm['down_payment_amount'];
-        $form['interest_rate'] = $applicationForm['interest_rate'];
+        $form['amount'] = (int) $applicationForm['amount'];
+        $form['leasing_duration'] = (int) $applicationForm['leasing_duration'];
+        $form['down_payment_amount'] = (int) $applicationForm['down_payment_amount'];
+        $form['interest_rate'] = (int) $applicationForm['interest_rate'];
         $form['leasing_ids'] = [1];
-        $form['remote_car_id'] = $applicationForm['remote_car_id'];
+        $form['remote_car_id'] = (int) $applicationForm['remote_car_id'];
         $form['ccy'] = $applicationForm['ccy'];
 
         $response = $this->client->request('POST', config('leasing-calculator.new_application_endpoint'), [
